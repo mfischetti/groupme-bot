@@ -19,10 +19,15 @@ $usrName = strtolower($p['name']);
 $cmd = explode (':',$msgText);
 
 //responses to message commands
-if($cmd[0] == 'test_bot'){
+if($cmd[0] == 'test_bot' && $usrName != 'test_bot'){
     switch ( $cmd[1] ){
         case "Hello": 
             $groupMe->post('Hi ' . $usrName . '!',$BOT_ID);
+            break;
+        case (preg_match("/\bdate\b/i", $cmd[1]) ? true : false ): 
+            $date = date('Y-m-d');
+            $msgDate = 'The date is ' . $date;
+            $groupMe->post($msgDate,$BOT_ID);
             break;
     }
 }
