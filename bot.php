@@ -14,14 +14,20 @@ $msgid = $p['id'];
 $msgText = strtolower($p['text']); 
 $usrName = strtolower($p['name']);
 
-echo 'Message id: ' . $msgid;
-echo 'Message Text: ' . $msgText;
-echo 'Message username : ' . $usrName;
+$cmd = explode (':',$msgText);
 
-if($usrName != 'test_bot'){
-    //bot repeats messages back to group
+//responses to message commands
+if($cmd[0] == 'test_bot'){
+    switch ( $cmd[1] ){
+       case "Hello": 
+            $post('Hi ' . $usrName . '!');
+            break;
+        }
+}
+
+function post($msg){
     $baseUrl = "https://api.groupme.com/v3/bots/post";
-    $res = \Httpful\Request::post( $this->baseUrl )->sendsJson( )->body( '{"text":"'.  $msgText .'","bot_id":"' . $BOT_ID . '"}' )->send( );
+    $res = \Httpful\Request::post( $this->baseUrl )->sendsJson( )->body( '{"text":"'.  $msg .'","bot_id":"' . $BOT_ID . '"}' )->send( );
 }
 
 ?>
