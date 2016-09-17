@@ -5,8 +5,10 @@
 * 
 *************************************************************************************/
 require './groupMeApi.php';
+require './dbupdate.php';
 
 $groupMe = new groupMeApi();
+$dbupdate = new dbupdate();
 
 //grabs the groupme bot id from the envrionment variables
 $BOT_ID = getenv('BOT_ID'); 
@@ -20,6 +22,9 @@ $p = json_decode($postData, true);
 $msgid = $p['id'];
 $msgText = strtolower($p['text']); 
 $usrName = strtolower($p['name']);
+
+//adds the message to the db
+$dbupdate->addMsg($msgid, $usrName, $msgText);
 
 $cmd = explode (':',$msgText);
 
