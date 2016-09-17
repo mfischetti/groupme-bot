@@ -1,5 +1,7 @@
 <?php
-require './httpful.phar';
+require './groupMeApi.php';
+
+$groupMe = new groupMeApi();
 
 //grabs the groupme bot id from the envrionment variables
 $BOT_ID = getenv('BOT_ID'); 
@@ -19,15 +21,9 @@ $cmd = explode (':',$msgText);
 //responses to message commands
 if($cmd[0] == 'test_bot'){
     switch ( $cmd[1] ){
-       case "Hello": 
-            $post('Hi ' . $usrName . '!');
+        case "Hello": 
+            $groupMe->post('Hi ' . $usrName . '!',$BOT_ID);
             break;
-        }
+    }
 }
-
-function post($msg){
-    $baseUrl = "https://api.groupme.com/v3/bots/post";
-    $res = \Httpful\Request::post( $this->baseUrl )->sendsJson( )->body( '{"text":"'.  $msg .'","bot_id":"' . $BOT_ID . '"}' )->send( );
-}
-
 ?>
