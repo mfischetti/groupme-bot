@@ -34,6 +34,11 @@ if($cmd[0] == 'test_bot' && $usrName != 'test_bot'){
         case "hello": 
             $groupMe->post('Hi ' . $usrName . '!',$BOT_ID);
             break;
+        case "fact":
+            $f_contents = file("./responses/facts.txt");
+            $line = $f_contents[array_rand($f_contents)];
+            $groupMe->post($line,$BOT_ID);
+            break;
         case (preg_match("/\bdate\b/i", $cmd[1]) ? true : false ): 
             $date = date('Y-m-d');
             $msgDate = 'The date is ' . $date;
