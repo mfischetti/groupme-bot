@@ -31,7 +31,7 @@ $cmd = explode (':',$msgText);
 //responses to message commands
 if($cmd[0] == 'test_bot' && $usrName != 'test_bot'){
     switch ( $cmd[1] ){
-        case "Hello": 
+        case "hello": 
             $groupMe->post('Hi ' . $usrName . '!',$BOT_ID);
             break;
         case (preg_match("/\bdate\b/i", $cmd[1]) ? true : false ): 
