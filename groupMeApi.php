@@ -12,7 +12,10 @@ class groupMeApi{
     
     public function post($msg,$bot_id){
         error_log($msg);
-        $res = \Httpful\Request::post( $this->baseUrl )->sendsJson( )->body( '{"text":"'.  $msg .'","bot_id":"' . $bot_id . '"}' )->send( );
+        
+        //trim text so groupme succesfuly sends message
+        $msgToSend = trim(preg_replace('/\s+/', ' ', $msg));
+        $res = \Httpful\Request::post( $this->baseUrl )->sendsJson( )->body( '{"text":"'.  $msgToSend .'","bot_id":"' . $bot_id . '"}' )->send( );
    
     }
 }
